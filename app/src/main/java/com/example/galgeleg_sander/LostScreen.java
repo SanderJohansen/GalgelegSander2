@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LossScreen extends AppCompatActivity {
+public class LostScreen extends AppCompatActivity {
 
 
     TextView ordetDerSkalGættes;
@@ -17,20 +17,24 @@ public class LossScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loss_screen);
+        setContentView(R.layout.lost_screen);
 
         text = getIntent().getExtras().getString("Text");
         ordetDerSkalGættes = (TextView)findViewById(R.id.ordetDerSkalGættes);
-        ordetDerSkalGættes.setText(text);
+        ordetDerSkalGættes.setText("ordet du gættede på var" + text +"" );
 
-        prøvIgenKnap = (Button)findViewById(R.id.button2);
+        prøvIgenKnap = (Button)findViewById(R.id.prøvIgenKnapTaber);
         prøvIgenKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LossScreen.this,MainActivity.class);
-                startActivity(intent);
+                spilIgen();
             }
         });
+    }
+
+    private void spilIgen() {
+        Intent intent = new Intent(LostScreen.this,MainActivity.class);
+        startActivity(intent);
     }
 }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loss_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.galgeleg_sander.LostScreen">
+
+
+    <TextView
+        android:id="@+id/OrdetDuIkkeGættede"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="306dp" />
+
+    <TextView
+        android:id="@+id/ordetDerSkalGættes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/prøvIgenKnapTaber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prøv igen"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="426dp" />
+
+    <TextView
+        android:id="@+id/duHarTabt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Du har desværre tabt."
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="115dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

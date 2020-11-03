@@ -15,8 +15,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
+    public static final String EXTRA_TEXT = "com.example.application.example.EXTRA_TEXT";
+    public static final String EXTRA_NUMBER = "com.example.application.example.EXTRA_NUMBER";
+    public static final String EXTRA_Array = "com.example.application.example.EXTRA_NUMBER";
     private ImageView galgebillede;
     private TextView deGætteBogstaver;
     private TextView findEtBogstav;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String input = findEtBogstav.getText().toString();
                 gætBogstav(input);
+                findEtBogstav.setText("");
+
             }
         })
     ;}
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            public void gætBogstav (String bogstav){
+            public void gætBogstav (String bogstav) {
 
                 if (bogstav.length() != 1) return;
                 System.out.println("Der gættes på bogstavet: " + bogstav);
@@ -161,6 +164,17 @@ public class MainActivity extends AppCompatActivity {
                     sidsteBogstavVarKorrekt = true;
                     System.out.println("Bogstavet var korrekt: " + bogstav);
                     opdaterSynligtOrd();
+                    opdaterBrugteBogstaver();
+                    //Function til at se om du har vundet.
+
+                    if(!((synligtOrd).contains("*"))) {
+
+                        Intent intent = new Intent(this, WinnerScreen.class);
+                        intent.putExtra(EXTRA_TEXT, ordet);
+                        intent.putExtra(EXTRA_NUMBER, antalForkerteBogstaver);
+
+                        startActivity(intent);
+                    }
                 } else {
                     // Vi gættede på et bogstav der ikke var i ordet.
                     sidsteBogstavVarKorrekt = false;
@@ -169,20 +183,27 @@ public class MainActivity extends AppCompatActivity {
                     opdaterBilledet(antalForkerteBogstaver);
                     opdaterBrugteBogstaver();
 
-                    if (antalForkerteBogstaver > 6) {
+                    if (antalForkerteBogstaver >= 6) {
                         spilletErTabt = true;
+                    //taber funktionen
+                        if (spilletErTabt == true) {
+                            String debrugteBogstaver = brugteBogstaver.toString();
+                            Intent intent = new Intent(this, LostScreen.class);
+                            intent.putExtra(EXTRA_TEXT, ordet);
+                            intent.putExtra(EXTRA_TEXT, debrugteBogstaver);
 
-                        openActivityLossScreen();
+                            startActivity(intent);
+                        }
                     }
+
+
                     logStatus();
                 }
             }
 
-            private void openActivityLossScreen(){
-        Intent intent = new Intent(MainActivity.this, LossScreen.class);
-        startActivity(intent);
 
-            }
+
+
 
 
         public void logStatus () {
@@ -197,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
 
 
