@@ -20,6 +20,7 @@ public class Galgelogik {
   private boolean spilletErVundet;
   private boolean spilletErTabt;
 
+
   public Galgelogik() {
     muligeOrd.add("bil");
     muligeOrd.add("computer");
