@@ -25,7 +25,7 @@ public class WinnerScreen extends AppCompatActivity {
         final int number = intent.getIntExtra(MainActivity.EXTRA_NUMBER, 0);
         TextView ordetOgFejl = (TextView) findViewById(R.id.ordetOgFejl);
 
-        ordetOgFejl.setText("Du skrev ordet  "+  text  +" hvor du mistede "  + number + " liv");
+        ordetOgFejl.setText("Du skrev ordet "+  text  +" og brugte "  + number + " forsøg");
 
         //Preferencemanager til at gemme ordet og antallet af forsøg
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
