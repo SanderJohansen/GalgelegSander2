@@ -2,26 +2,38 @@ package com.example.galgeleg_sander;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 import java.util.Random;
+
+
+
 
 public class MainActivity extends AppCompatActivity {
 
 
     public static final String EXTRA_TEXT = "com.example.application.example.EXTRA_TEXT";
     public static final String EXTRA_NUMBER = "com.example.application.example.EXTRA_NUMBER";
-    public static final String EXTRA_Array = "com.example.application.example.EXTRA_NUMBER";
+    SharedPreferences prefs;
+
+
+
     private ImageView galgebillede;
     private TextView deGætteBogstaver;
     private TextView findEtBogstav;
     private TextView ordetDerSkalGættes;
+    private TextView scoreBoard;
     private ArrayList<String> muligeOrd = new ArrayList<String>();
     private String ordet;
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
@@ -31,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean spilletErVundet;
     private boolean spilletErTabt;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +53,17 @@ public class MainActivity extends AppCompatActivity {
         galgebillede = findViewById(R.id.galge);
         deGætteBogstaver = findViewById(R.id.gættedeBogstaver);
         findEtBogstav = findViewById(R.id.findEtBogstav);
+        scoreBoard = findViewById(R.id.scoreBoard);
         ordetDerSkalGættes =findViewById(R.id.ordetDerSkalGættes);
         Button bekæftKnap = (Button) findViewById(R.id.BekræftKnap);
+        Button muligOrdKnap = (Button) findViewById(R.id.muligOrdKnap);
+
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+
+
         muligeOrd.add("bil");
         muligeOrd.add("computer");
         muligeOrd.add("programmering");
@@ -51,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         muligeOrd.add("tyve");
 
         startNytSpil();
+        loadDataAndPutItIntoScore();
 
 
         bekæftKnap.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +84,20 @@ public class MainActivity extends AppCompatActivity {
                 gætBogstav(input);
                 findEtBogstav.setText("");
 
+
+
             }
-        })
+        });
+
+        muligOrdKnap.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                goToMuligeOrd();
+
+
+
+            }
+        });
     ;}
 
 
@@ -165,7 +202,9 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("Bogstavet var korrekt: " + bogstav);
                     opdaterSynligtOrd();
                     opdaterBrugteBogstaver();
-                    //Function til at se om du har vundet.
+
+
+                    //Function til at se om du har vundet, den er sygt funky, men jakobs metode buggede mig totalt.
 
                     if(!((synligtOrd).contains("*"))) {
 
@@ -195,16 +234,24 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     }
-
-
                     logStatus();
                 }
             }
+    private void goToMuligeOrd() {
+        Intent intent = new Intent(this, MuligeOrdBoard.class);
+        startActivity(intent);
+    }
 
 
 
+            public void loadDataAndPutItIntoScore(){
+        //Koden til preferencemanager er taget fra Jakob
+            //https://github.com/nordfalk/AndroidElementer/blob/master/app/src/main/java/lekt06_data/BenytPreferenceManager.java
+         String gemtTekst = prefs.getString("editText", "Ingen gemt score fundet");
+        scoreBoard.setText("Tidligere score: " + gemtTekst);
 
 
+            }
 
         public void logStatus () {
             System.out.println("---------- ");
